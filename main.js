@@ -31,17 +31,22 @@ router.get('/', function (req, res, next) {
  router.post('/savedetails', function(req, res){
     dbo.collection('users').save(req.body, (err, result) => {
         if (err) return console.log(err)
-
         console.log('saved to database')
         // res.redirect('/')
       })
  });
 
- router.get('/showdetails', function(req, res){
+ router.get('/showalldetails', function(req, res){
     dbo.collection('users').find().toArray((err, result)=>{
         res.send(result)
     })
  });
+
+ router.get('/showdetails/:id', function(req, res){
+   dbo.collection('users').find({id2 : req.params.id}).toArray((err, result)=>{
+       res.send(result)
+   })
+});
 
  router.put('/updatedetails', function(req, res){
     console.log(req.body)
